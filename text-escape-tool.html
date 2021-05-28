@@ -1,0 +1,146 @@
+<html>
+
+<head>
+    <title>Text escape tool for RegEx</title>
+    <style>
+        #root {
+            width: 500px;
+            margin: 50px auto;
+        }
+
+        #root,
+        input {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .field {
+            display: grid;
+            grid-template-columns: 70% 30%;
+            grid-template-rows: 1fr 1fr;
+            margin: 30px 0;
+        }
+
+        .field label {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+
+        .field input {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            border: 1px solid gainsboro;
+            padding: 10px;
+        }
+
+        .field input[type="button"] {
+            background-color: gainsboro;
+        }
+
+        .field input[type="text"]:focus {
+            box-shadow: none;
+            outline: none;
+            border-color: lightblue;
+        }
+
+        .field input[type="button"]:active {
+            box-shadow: none;
+            outline: none;
+            background-color: lightblue;
+            border-color: lightblue;
+        }
+
+        .option {
+            display: flex;
+        }
+
+        .option label {
+            padding: 10px;
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <h1>Text escape tool for RegEx</h1>
+        <div class="field">
+            <label for="source">Your text:</label>
+            <input type="text" id="source" placeholder="/\+-*^$.:?!|()[]{}<>" />
+            <input type="button" value="Clear" id="clear" />
+        </div>
+        <div class="field">
+            <label for="target">Output:</label>
+            <input type="text" id="target" placeholder="\/\\\+\-\*\^\$\.\:\?\!\|\(\)\[\]\{\}\<\>" readonly />
+            <input type="button" value="Copy" id="copy" />
+        </div>
+        <div class="options">
+            <h2>Output options</h2>
+            <div class="option">
+                <input type="checkbox" id="useslashes" /><label for="useslashes">Wrap text with slashes</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="fromstart" /><label for="fromstart">Add start anchor</label>
+            </div>
+            <div class="option">
+                <input type="checkbox" id="toend" /><label for="toend">Add end anchor</label>
+            </div>
+        </div>
+</body>
+<script type="text/javascript">
+    for (let label of document.querySelectorAll('label[for]')) {
+        let attrFor = label.getAttribute("for")
+        let checkbox = document.querySelector(`input[type="checkbox"]#${attrFor}`)
+        if (checkbox !== null) {
+            attrFor.onclick = () => {
+                checkbox.checked = !checkbox.checked
+            }
+        }
+    }
+
+    let source = document.querySelector("#source")
+    let target = document.querySelector("#target")
+    let clearButton = document.querySelector("#clear")
+    let copyButton = document.querySelector("#copy")
+    let useSlashes = document.querySelector("#useslashes")
+    let fromStart = document.querySelector("#fromstart")
+    let toEnd = document.querySelector("#toend")
+    let outPlaceholder = target.getAttribute("placeholder")
+
+    source.oninput = refresh
+    useSlashes.onchange = refresh
+    fromStart.onchange = refresh
+    toEnd.onchange = refresh
+
+    clearButton.onclick = () => {
+        source.value = ""
+        target.value = ""
+    }
+
+    copyButton.onclick = () => {
+        target.select()
+        document.execCommand("copy")
+    }
+
+    function escapeRegex(string) {
+        //return string.replace(/[-\/\\^$*+?.()|[\]{}\:]/g, '\\$&');
+        // /\+-*^$.:?!|()[]{}<>
+        return string.replace(/[\/\\\+\-\*\^\$\.\:\?\!\|\(\)\[\]\{\}\<\>]/g, '\\$&');
+    }
+
+    function refresh() {
+        let slashesText = useSlashes.checked ? "/" : ""
+        let fromStartText = fromStart.checked ? "^" : ""
+        let toEndText = toEnd.checked ? "$" : ""
+
+        target.setAttribute("placeholder", slashesText + fromStartText + outPlaceholder + toEndText + slashesText)
+
+        if (source.value === "") {
+            return
+        }
+
+        target.value = slashesText + fromStartText + escapeRegex(source.value) + toEndText + slashesText
+    }
+</script>
+
+</html>
