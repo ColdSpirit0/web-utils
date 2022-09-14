@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add ya.ru to search</title>
+    <link rel="search" type="application/opensearchdescription+xml" title="Yandex" href="./ya.xml">
+    <style>
+        @keyframes arrow-animation {
+            from { transform: translateY(30px); }
+            to { transform: translateY(-30px); }
+        }
+
+        body {
+            background-color: aliceblue;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 600px;
+        }
+
+        .container .arrow {
+            font-size: 170px;
+            line-height: 0;
+            width: 100%;
+            text-align: center;
+            color: rebeccapurple;
+
+            animation-name: arrow-animation;
+            animation: arrow-animation 3s ease-in-out 0s infinite alternate;
+        }
+
+        .container img {
+            border: 1px solid lightblue;
+            margin-top: 200px;
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="arrow">🢕</div>
+        <img src="./example.png" width="100%">
+    </div>
+</body>
+
+</html>
