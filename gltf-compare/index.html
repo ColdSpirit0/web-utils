@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>GLTF Compare Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #111;
+            font-family: sans-serif;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #drop-left,
+        #drop-right {
+            position: absolute;
+            bottom: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            line-height: 100px;
+            font-size: 14px;
+            pointer-events: auto;
+            transition: opacity 0.3s;
+        }
+
+        #drop-left {
+            left: 0;
+        }
+
+        #drop-right {
+            right: 0;
+        }
+
+        #fileNameLeft,
+        #fileNameRight {
+            position: absolute;
+            bottom: 5px;
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        #fileNameLeft {
+            left: 10px;
+        }
+
+        #fileNameRight {
+            right: 10px;
+        }
+
+        #toggleCulling {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            padding: 6px 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #666;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+        }
+
+        #divider {
+            position: absolute;
+            top: 0;
+            width: 2px;
+            background: white;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="toggleCulling">Cull: ON</button>
+    <div id="drop-left">Drop Model A</div>
+    <div id="drop-right">Drop Model B</div>
+    <div id="fileNameLeft"></div>
+    <div id="fileNameRight"></div>
+    <div id="divider"></div>
+
+    <script src="./three.min.js"></script>
+    <script src="./GLTFLoader.js"></script>
+    <script src="./OrbitControls.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>
