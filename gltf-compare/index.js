@@ -10,6 +10,9 @@ document.body.appendChild(renderer.domElement);
 
 let controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+scene1.background = new THREE.Color(0x556655);
+scene2.background = new THREE.Color(0x555566);
+
 scene1.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.2));
 scene2.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.2));
 
